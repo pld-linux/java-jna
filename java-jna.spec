@@ -48,11 +48,6 @@ JNI ani fragmentu kodu natywnego.
 rm test/com/sun/jna/DirectTest.java
 
 %build
-export JAVA_HOME="%{java_home}"
-
-required_jars="jaxp_parser_impl"
-CLASSPATH=$(build-classpath $required_jars)
-export CLASSPATH
 %ant
 
 %install
