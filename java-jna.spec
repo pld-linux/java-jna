@@ -21,9 +21,6 @@ Group:		Libraries/Java
 Source0:	%{srcname}-%{version}.%{snap}.tar.bz2
 # Source0-md5:	ebfd892683335a3fd6da931938322f77
 URL:		https://jna.dev.java.net/
-%if %(locale -a | grep -q '^en_US$'; echo $?)
-BuildRequires:	glibc-localedb-all
-%endif
 BuildRequires:	ant-nodeps
 BuildRequires:	jpackage-utils
 BuildRequires:	libffi-devel >= 4.5.2
@@ -56,7 +53,6 @@ export JAVA_HOME="%{java_home}"
 required_jars="jaxp_parser_impl"
 CLASSPATH=$(build-classpath $required_jars)
 export CLASSPATH
-export LC_ALL=en_US # source code not US-ASCII
 
 %ant
 
