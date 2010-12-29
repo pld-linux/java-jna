@@ -1,5 +1,5 @@
 # TODO
-# - allow disable tests
+# - pass CC and CFLAGS to "native" target
 #
 # Conditional build:
 %bcond_without	tests		# don't build and run tests
@@ -48,7 +48,7 @@ JNI ani fragmentu kodu natywnego.
 rm test/com/sun/jna/DirectTest.java
 
 %build
-%ant
+%ant jar contrib-jars %{?with_tests:tests}
 
 %install
 rm -rf $RPM_BUILD_ROOT
