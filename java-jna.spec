@@ -23,7 +23,7 @@ Source0:	%{srcname}-%{version}.%{snap}.tar.bz2
 URL:		https://jna.dev.java.net/
 BuildRequires:	ant-nodeps
 BuildRequires:	jpackage-utils
-BuildRequires:	libffi-devel >= 4.5.2
+BuildRequires:	libffi-devel >= 6:4.5.2
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	sed >= 4.0
