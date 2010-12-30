@@ -1,5 +1,6 @@
 # TODO
 # - pass CC and CFLAGS to "native" target
+# - Fix tests bcond
 #
 # Conditional build:
 %bcond_without	tests		# don't build and run tests
@@ -11,7 +12,7 @@ Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek dzielonych z poziomu Javy.
 Name:		java-%{srcname}
 Version:	3.2.7.0
-Release:	0.%{snap}.1
+Release:	0.%{snap}.2
 License:	LGPL
 Group:		Libraries/Java
 # Source0:	https://jna.dev.java.net/source/browse/*checkout*/jna/tags/%{version}/jnalib/dist/src.zip
@@ -48,7 +49,8 @@ JNI ani fragmentu kodu natywnego.
 rm test/com/sun/jna/DirectTest.java
 
 %build
-%ant jar contrib-jars %{?with_tests:tests}
+# %ant jar contrib-jars %{?with_tests:tests}
+%ant 
 
 %install
 rm -rf $RPM_BUILD_ROOT
