@@ -9,7 +9,7 @@
 %define		snap		rev1177
 %include	/usr/lib/rpm/macros.java
 Summary:	Easy access to native shared libraries from Java
-Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek dzielonych z poziomu Javy.
+Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-%{srcname}
 Version:	3.2.7.0
 Release:	0.%{snap}.2
@@ -29,29 +29,33 @@ BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
+%if %{with tests}
+BuildRequires:	java-junit
+BuildRequires:	ant-junit
+BuildRequires:	ant-trax
+%endif
 Requires:	jpackage-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 JNA provides Java programs easy access to native shared libraries
-(DLLs on Windows) without writing anything but Java code No JNI or
+(DLLs on Windows) without writing anything but Java code - no JNI or
 native code is required.
 
 %description -l pl.UTF-8
-JNA pozwala na łatwy dostęp do natywnych bibliotek dzielonych bez
-pisania czegokolwiek co nie jest kodem Javy. Nie potrzebne jest ani
-JNI ani fragmentu kodu natywnego.
+JNA pozwala na łatwy dostęp do natywnych bibliotek współdzielonych bez
+pisania czegokolwiek co nie jest kodem Javy - nie jest potrzebne JNI
+ani kod natywny.
 
 %prep
 %setup -q -n %{srcname}-%{version}.%{snap}
 
 # Segfaults for us and for fedora
-rm test/com/sun/jna/DirectTest.java
+%{__rm} test/com/sun/jna/DirectTest.java
 
 %build
-# %ant jar contrib-jars %{?with_tests:tests}
-%ant 
+%ant jar contrib-jars %{?with_tests:test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
