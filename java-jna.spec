@@ -1,41 +1,46 @@
-# TODO
-# - pass CC and CFLAGS to "native" target
-# - Fix tests bcond
 #
 # Conditional build:
 %bcond_without	tests		# don't build and run tests
-
-%define		srcname		jna
-%define		snap		rev1177
+%bcond_without	system_libffi	# use system libffi (upstream 3.0.12 or gcc >= 4.8)
+#
 %include	/usr/lib/rpm/macros.java
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
-Name:		java-%{srcname}
-Version:	3.2.7.0
-Release:	0.%{snap}.2
-License:	LGPL
+Name:		java-jna
+Version:	4.0
+Release:	1
+License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
-# Source0:	https://jna.dev.java.net/source/browse/*checkout*/jna/tags/%{version}/jnalib/dist/src.zip
-# svn export https://jna.dev.java.net/svn/jna/tags/3.2.7/jnalib/ --username guest jna-3.2.7.0
-# mv  jna-3.2.7.0   jna-3.2.7.0.rev1177
-# tar cjf ~/rpm/packages/jna/jna-3.2.7.0.rev1177.tar.bz2 jna-3.2.7.0.rev1177/
-Source0:	%{srcname}-%{version}.%{snap}.tar.bz2
-# Source0-md5:	ebfd892683335a3fd6da931938322f77
-URL:		https://jna.dev.java.net/
+Source0:	https://github.com/twall/jna/archive/%{version}.tar.gz?/jna-%{version}.tar.gz
+# Source0-md5:	be0320402c93d33426e51aeb0ff34eec
+# Note: by default jna.jar contains versions of native libjnidispatch
+# for many systems/architectures; this patch disables such packaging;
+# we package libjnidispatch.so as normal native library instead
+Patch0:		jna-nonative.patch
+Patch1:		jna-soname.patch
+URL:		https://jna.java.net/
 BuildRequires:	ant-nodeps
+%if %(locale -a | grep -q '^en_US$'; echo $?)%(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
+BuildRequires:	glibc-localedb-all
+%endif
 BuildRequires:	jpackage-utils
-BuildRequires:	libffi-devel >= 6:4.5.2
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
+%if %{with system_libffi}
+# upstream version
+BuildRequires:	libffi-devel >= 3.0.12
+# gcc version (gcc 4.7.3 is not sufficient - missing ffi_prep_cif_var added in libffi 3.0.12)
+BuildRequires:	libffi-devel >= 6:4.8
+BuildRequires:	pkgconfig
+%endif
 %if %{with tests}
 BuildRequires:	java-junit
 BuildRequires:	ant-junit
 BuildRequires:	ant-trax
 %endif
 Requires:	jpackage-utils
-BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -49,26 +54,50 @@ pisania czegokolwiek co nie jest kodem Javy - nie jest potrzebne JNI
 ani kod natywny.
 
 %prep
-%setup -q -n %{srcname}-%{version}.%{snap}
+%setup -q -n jna-%{version}
+%patch0 -p1
+%patch1 -p1
 
-# Segfaults for us and for fedora
-%{__rm} test/com/sun/jna/DirectTest.java
+%{__rm} -r dist/* lib/native/*.jar
+
+%if %{with system_libffi}
+# use system libffi
+%{__sed} -i -e '/property name="dynlink\.native"/s/value="false"/value="true"/' build.xml
+%endif
+# optflags
+%{__sed} -i -e '/property name="cflags_extra\.native"/s@value=""@value="%{rpmcflags}"@' build.xml
 
 %build
-%ant jar contrib-jars %{?with_tests:test}
+# build seems to need iso-8859-1 locale (there are some 8bit-encoded characters in win32 sources)
+export LC_ALL=en_US
+%ant -DCC="%{__cc}" -Drelease=1 -Ddynlink.native=true dist
+
+%if %{with tests}
+# but tests require UTF-8
+export LC_ALL=en_US.UTF-8
+%ant -Drelease=1 test
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_javadir}
+install -d $RPM_BUILD_ROOT{%{_javadir},%{_libdir}}
 
 # jars
-cp -a dist/%{srcname}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-%{version}.jar
-ln -s %{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}.jar
+cp -p dist/jna.jar $RPM_BUILD_ROOT%{_javadir}/jna-%{version}.jar
+ln -s jna-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jna.jar
+cp -p dist/jna-platform.jar $RPM_BUILD_ROOT%{_javadir}/jna-platform-%{version}.jar
+ln -s jna-platform-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/jna-platform.jar
+# native stub library
+install build/native-linux-*/libjnidispatch.so $RPM_BUILD_ROOT%{_libdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{_javadir}/%{srcname}.jar
-%{_javadir}/%{srcname}-%{version}.jar
+%doc CHANGES.md LICENSE OTHERS README.md TODO
+%attr(755,root,root) %{_libdir}/libjnidispatch.so
+%{_javadir}/jna-%{version}.jar
+%{_javadir}/jna.jar
+%{_javadir}/jna-platform-%{version}.jar
+%{_javadir}/jna-platform.jar

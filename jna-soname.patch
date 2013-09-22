@@ -1,0 +1,19 @@
+--- jna-4.0/native/Makefile.orig	2013-07-04 20:42:30.000000000 +0200
++++ jna-4.0/native/Makefile	2013-09-22 14:54:44.712074273 +0200
+@@ -66,6 +66,7 @@
+ FFI_ENV=CC="$(CC)" CFLAGS="$(COPT) $(CDEBUG)" CPPFLAGS="$(CDEFINES)"
+ FFI_CONFIG=--enable-static --disable-shared --with-pic=yes
+ endif
++LIBBASE=$(LIBPFX)jnidispatch$(JNISFX)
+ LIBRARY=$(BUILD)/$(LIBPFX)jnidispatch$(JNISFX)
+ TESTLIB=$(BUILD)/$(LIBPFX)testlib$(LIBSFX)
+ TESTLIB_JAR=$(BUILD)/$(LIBPFX)testlib-jar$(LIBSFX)
+@@ -243,7 +244,7 @@
+ ARCH=$(shell uname -m | sed 's/i.86/i386/g')
+ PCFLAGS+=-fPIC
+ CDEFINES+=-DHAVE_PROTECTION
+-LDFLAGS+=-Wl,-soname,$@
++LDFLAGS+=-Wl,-soname,$(LIBBASE)
+ endif
+ 
+ ifneq (,$(findstring bsd,$(OS)))
