@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	tests		# don't build and run tests
 %bcond_without	system_libffi	# use system libffi (upstream 3.0.12 or gcc >= 4.8)
-#
+
 %include	/usr/lib/rpm/macros.java
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
@@ -11,7 +11,7 @@ Version:	4.0
 Release:	1
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
-Source0:	https://github.com/twall/jna/archive/%{version}.tar.gz?/jna-%{version}.tar.gz
+Source0:	https://github.com/twall/jna/archive/%{version}/jna-%{version}.tar.gz
 # Source0-md5:	be0320402c93d33426e51aeb0ff34eec
 # Note: by default jna.jar contains versions of native libjnidispatch
 # for many systems/architectures; this patch disables such packaging;
