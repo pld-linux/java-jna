@@ -18,6 +18,7 @@ Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{vers
 # we package libjnidispatch.so as normal native library instead
 Patch0:		jna-nonative.patch
 Patch1:		jna-soname.patch
+Patch2:		jna-tmpdir.patch
 URL:		https://github.com/java-native-access/jna/
 %if %(locale -a | grep -q '^en_US$'; echo $?)%(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
@@ -56,6 +57,7 @@ ani kod natywny.
 %setup -q -n jna-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %{__rm} -r dist/* lib/native/*.jar
 
