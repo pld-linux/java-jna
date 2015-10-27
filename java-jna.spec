@@ -7,22 +7,22 @@
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
-Version:	4.0
+Version:	4.2.1
 Release:	1
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
-Source0:	https://github.com/twall/jna/archive/%{version}/jna-%{version}.tar.gz
-# Source0-md5:	be0320402c93d33426e51aeb0ff34eec
+Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{version}.tar.gz
+# Source0-md5:	899675953b365fc4e0da6b7eb7802a8e
 # Note: by default jna.jar contains versions of native libjnidispatch
 # for many systems/architectures; this patch disables such packaging;
 # we package libjnidispatch.so as normal native library instead
 Patch0:		jna-nonative.patch
 Patch1:		jna-soname.patch
-URL:		https://jna.java.net/
-BuildRequires:	ant-nodeps
+URL:		https://github.com/java-native-access/jna/
 %if %(locale -a | grep -q '^en_US$'; echo $?)%(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
+BuildRequires:	ant >= 1.9.0
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
@@ -38,7 +38,6 @@ BuildRequires:	pkgconfig
 %if %{with tests}
 BuildRequires:	java-junit
 BuildRequires:	ant-junit
-BuildRequires:	ant-trax
 %endif
 Requires:	jpackage-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

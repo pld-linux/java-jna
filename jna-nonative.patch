@@ -1,6 +1,7 @@
---- jna-4.0/build.xml.orig	2013-07-04 20:42:30.000000000 +0200
-+++ jna-4.0/build.xml	2013-09-22 14:30:40.805468201 +0200
-@@ -416,66 +416,6 @@
+diff -dur jna-4.2.1.orig/build.xml jna-4.2.1/build.xml
+--- jna-4.2.1.orig/build.xml	2015-10-18 14:40:13.000000000 +0200
++++ jna-4.2.1/build.xml	2015-10-27 12:15:47.000000000 +0100
+@@ -441,75 +441,6 @@
        <fileset dir="${classes}" excludes="${jar.omitted}">
          <patternset refid="jar-compiled"/>
        </fileset>
@@ -25,6 +26,9 @@
 -      <zipfileset src="${lib.native}/linux-arm.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/linux-arm"/>
+-      <zipfileset src="${lib.native}/linux-aarch64.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/linux-aarch64"/>
 -      <zipfileset src="${lib.native}/linux-ia64.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/linux-ia64"/>
@@ -34,6 +38,12 @@
 -      <zipfileset src="${lib.native}/linux-ppc64.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/linux-ppc64"/>
+-      <zipfileset src="${lib.native}/linux-ppc64le.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/linux-ppc64le"/>
+-      <zipfileset src="${lib.native}/linux-sparcv9.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/linux-sparcv9"/>
 -      <zipfileset src="${lib.native}/sunos-x86.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/sunos-x86"/>
