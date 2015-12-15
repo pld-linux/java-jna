@@ -8,7 +8,7 @@ Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
 Version:	4.2.1
-Release:	1
+Release:	2
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
 Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{version}.tar.gz
@@ -19,6 +19,7 @@ Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{vers
 Patch0:		jna-nonative.patch
 Patch1:		jna-soname.patch
 Patch2:		jna-tmpdir.patch
+Patch3:		jna-x32.patch
 URL:		https://github.com/java-native-access/jna/
 %if %(locale -a | grep -q '^en_US$'; echo $?)%(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
 BuildRequires:	glibc-localedb-all
@@ -58,6 +59,7 @@ ani kod natywny.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %{__rm} -r dist/* lib/native/*.jar
 

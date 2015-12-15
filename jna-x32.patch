@@ -1,0 +1,36 @@
+--- jna-4.2.1/src/com/sun/jna/NativeLibrary.java.orig	2015-10-18 14:40:13.000000000 +0200
++++ jna-4.2.1/src/com/sun/jna/NativeLibrary.java	2015-12-13 16:14:09.494386400 +0100
+@@ -839,6 +839,9 @@
+             //
+             if (Platform.isLinux() || Platform.isSolaris()
+                 || Platform.isFreeBSD() || Platform.iskFreeBSD()) {
++                if (Platform.isLinux() && Platform.ARCH.equals("x32"))
++                    archPath = "x32";
++                else
+                 // Linux & FreeBSD use /usr/lib32, solaris uses /usr/lib/32
+                 archPath = (Platform.isSolaris() ? "/" : "") + Pointer.SIZE * 8;
+             }
+--- jna-4.2.1/src/com/sun/jna/Platform.java.orig	2015-10-18 14:40:13.000000000 +0200
++++ jna-4.2.1/src/com/sun/jna/Platform.java	2015-12-14 21:43:02.901129494 +0100
+@@ -207,6 +207,10 @@
+         return ARCH.startsWith("sparc");
+     }
+ 
++    public static final boolean isX32() {
++        return ARCH.startsWith("x32");
++    }
++
+     static String getCanonicalArchitecture(String arch) {
+ 	arch = arch.toLowerCase().trim();
+         if ("powerpc".equals(arch)) {
+--- jna-4.2.1/src/com/sun/jna/Native.java.orig	2015-10-18 14:40:13.000000000 +0200
++++ jna-4.2.1/src/com/sun/jna/Native.java	2015-12-14 21:43:48.103450946 +0100
+@@ -164,7 +164,7 @@
+                             + "   jnidispatch library included with the JNA jar file you are using" + LS);
+         }
+         MAX_ALIGNMENT = Platform.isSPARC() || Platform.isWindows()
+-            || (Platform.isLinux() && (Platform.isARM() || Platform.isPPC()))
++            || (Platform.isLinux() && (Platform.isARM() || Platform.isPPC() || Platform.isX32()))
+             || Platform.isAIX()
+             || Platform.isAndroid()
+             ? 8 : LONG_SIZE;
