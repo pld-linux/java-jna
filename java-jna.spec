@@ -7,12 +7,13 @@
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
-Version:	4.2.1
-Release:	2
+Version:	4.5.1
+Release:	1
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
+#Source0Download: https://github.com/java-native-access/jna/releases
 Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{version}.tar.gz
-# Source0-md5:	899675953b365fc4e0da6b7eb7802a8e
+# Source0-md5:	3cf5c206ba2246386af2e9248fa6f035
 # Note: by default jna.jar contains versions of native libjnidispatch
 # for many systems/architectures; this patch disables such packaging;
 # we package libjnidispatch.so as normal native library instead
@@ -20,8 +21,9 @@ Patch0:		jna-nonative.patch
 Patch1:		jna-soname.patch
 Patch2:		jna-tmpdir.patch
 Patch3:		jna-x32.patch
+Patch4:		jna-no-aar.patch
 URL:		https://github.com/java-native-access/jna/
-%if %(locale -a | grep -q '^en_US$'; echo $?)%(locale -a | grep -q '^en_US\.UTF-8$'; echo $?)
+%if %(locale -a | grep -q '^en_US$'; echo $?)%(locale -a | grep -q '^en_US\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	ant >= 1.9.0
@@ -60,6 +62,7 @@ ani kod natywny.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %{__rm} -r dist/* lib/native/*.jar
 
@@ -70,10 +73,13 @@ ani kod natywny.
 # optflags
 %{__sed} -i -e '/property name="cflags_extra\.native"/s@value=""@value="%{rpmcflags}"@' build.xml
 
+# ELFAnalyserTest fails when foreign native libraries are not present
+%{__rm} test/com/sun/jna/ELFAnalyserTest.java
+
 %build
 # build seems to need iso-8859-1 locale (there are some 8bit-encoded characters in win32 sources)
 export LC_ALL=en_US
-%ant -DCC="%{__cc}" -Drelease=1 -Ddynlink.native=true dist
+%ant -DCC="%{__cc}" -Drelease=1 -Dbuild-native=true -Ddynlink.native=true dist
 
 %if %{with tests}
 # but tests require UTF-8
