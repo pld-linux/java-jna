@@ -3,7 +3,6 @@
 %bcond_without	tests		# don't build and run tests
 %bcond_without	system_libffi	# use system libffi (upstream 3.0.12 or gcc >= 4.8)
 
-%include	/usr/lib/rpm/macros.java
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
