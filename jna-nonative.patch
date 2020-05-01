@@ -1,6 +1,6 @@
---- jna-4.5.1/build.xml.orig	2018-06-28 19:41:44.691496684 +0200
-+++ jna-4.5.1/build.xml	2018-06-28 19:45:43.404827190 +0200
-@@ -492,84 +492,6 @@
+--- jna-5.5.0/build.xml~	2019-10-30 17:41:18.000000000 +0100
++++ jna-5.5.0/build.xml	2020-05-01 13:28:12.569529122 +0200
+@@ -506,84 +506,6 @@
        <fileset dir="${classes}" excludes="${jar.omitted}">
          <patternset refid="jar-compiled"/>
        </fileset>
@@ -82,10 +82,10 @@
 -      <zipfileset src="${lib.native}/w32ce-arm.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/w32ce-arm"/>
-     </jar>
-     <zip zipfile="${build}/${minjar}">
-       <zipfileset src="${build}/${jar}" excludes="**/*jnidispatch*"/>
-@@ -523,27 +523,6 @@
+       <zipfileset dir="."
+                   includes="LICENSE,LGPL2.1,AL2.0"
+                   prefix="META-INF"/>
+@@ -618,27 +540,6 @@
            <fileset file="${build}/${minjar}"/>
            <globmapper from="*" to="classes.jar"/>
          </mappedresources>

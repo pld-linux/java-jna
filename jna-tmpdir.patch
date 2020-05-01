@@ -2,11 +2,11 @@ diff -dur jna-4.2.1.orig/build.xml jna-4.2.1/build.xml
 --- jna-4.2.1.orig/build.xml	2015-10-27 12:39:07.000000000 +0100
 +++ jna-4.2.1/build.xml	2015-10-27 12:39:38.000000000 +0100
 @@ -929,6 +929,8 @@
-       <sysproperty key="jna.protected" value="true"/>
+       <sysproperty key="jna.nosys" value="true"/>
        <sysproperty key="jna.builddir" file="${build}"/>
        <sysproperty key="jna.nativedir" file="${build.native}"/>
 +      <sysproperty key="java.io.tmpdir" file="${build}/tmp"/>
 +      <sysproperty key="jna.tmpdir" file="${build}/tmp"/>
-       <jvmarg value="${vmopt.arch}"/>
        <classpath><path refid="test.runpath"/></classpath>
        <formatter type="brief" usefile="false"/>
+       <formatter type="xml"/>
