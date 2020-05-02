@@ -28,7 +28,7 @@ BuildRequires:	glibc-localedb-all
 BuildRequires:	ant >= 1.9.0
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.300
+BuildRequires:	rpmbuild(macros) >= 1.745
 BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
 %if %{with system_libffi}
