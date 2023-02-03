@@ -1,6 +1,6 @@
---- jna-4.2.1/src/com/sun/jna/NativeLibrary.java.orig	2015-10-18 14:40:13.000000000 +0200
-+++ jna-4.2.1/src/com/sun/jna/NativeLibrary.java	2015-12-13 16:14:09.494386400 +0100
-@@ -839,6 +839,9 @@
+--- jna-5.6.0/src/com/sun/jna/NativeLibrary.java.orig	2023-02-03 16:12:04.261810212 +0100
++++ jna-5.6.0/src/com/sun/jna/NativeLibrary.java	2023-02-03 16:18:25.517413974 +0100
+@@ -903,6 +903,9 @@ public class NativeLibrary {
              //
              if (Platform.isLinux() || Platform.isSolaris()
                  || Platform.isFreeBSD() || Platform.iskFreeBSD()) {
@@ -8,11 +8,11 @@
 +                    archPath = "x32";
 +                else
                  // Linux & FreeBSD use /usr/lib32, solaris uses /usr/lib/32
-                 archPath = (Platform.isSolaris() ? "/" : "") + Pointer.SIZE * 8;
+                 archPath = (Platform.isSolaris() ? "/" : "") + Native.POINTER_SIZE * 8;
              }
---- jna-4.5.1/src/com/sun/jna/Platform.java.orig	2018-06-28 19:46:05.611493700 +0200
-+++ jna-4.5.1/src/com/sun/jna/Platform.java	2018-06-28 19:49:30.964824730 +0200
-@@ -236,6 +236,10 @@
+--- jna-5.6.0/src/com/sun/jna/Platform.java.orig	2023-02-03 16:12:04.262811012 +0100
++++ jna-5.6.0/src/com/sun/jna/Platform.java	2023-02-03 16:19:26.593247233 +0100
+@@ -233,6 +233,10 @@ public final class Platform {
          return false;
      }
  
@@ -21,16 +21,16 @@
 +    }
 +
      static String getCanonicalArchitecture(String arch, int platform) {
- 	arch = arch.toLowerCase().trim();
+         arch = arch.toLowerCase().trim();
          if ("powerpc".equals(arch)) {
---- jna-4.5.1/src/com/sun/jna/Native.java.orig	2018-06-28 19:46:05.611493700 +0200
-+++ jna-4.5.1/src/com/sun/jna/Native.java	2018-06-28 19:50:19.764824118 +0200
-@@ -218,7 +218,7 @@
+--- jna-5.6.0/src/com/sun/jna/Native.java.orig	2023-02-03 16:12:04.266143327 +0100
++++ jna-5.6.0/src/com/sun/jna/Native.java	2023-02-03 16:21:28.159753425 +0100
+@@ -224,7 +224,7 @@ public final class Native implements Ver
              setProtected(true);
          }
          MAX_ALIGNMENT = Platform.isSPARC() || Platform.isWindows()
 -            || (Platform.isLinux() && (Platform.isARM() || Platform.isPPC() || Platform.isMIPS()))
 +            || (Platform.isLinux() && (Platform.isARM() || Platform.isPPC() || Platform.isMIPS()) || Platform.isX32())
              || Platform.isAIX()
-             || Platform.isAndroid()
+             || (Platform.isAndroid() && !Platform.isIntel())
              ? 8 : LONG_SIZE;

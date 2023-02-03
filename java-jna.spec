@@ -1,18 +1,18 @@
 #
 # Conditional build:
-%bcond_without	tests		# don't build and run tests
-%bcond_without	system_libffi	# use system libffi (upstream 3.0.12 or gcc >= 4.8)
+%bcond_without	tests		# unit test
+%bcond_without	system_libffi	# system libffi (upstream 3.0.12 or gcc >= 4.8)
 
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
-Version:	5.5.0
+Version:	5.6.0
 Release:	1
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
-#Source0Download: https://github.com/java-native-access/jna/releases
+#Source0Download: https://github.com/java-native-access/jna/tags
 Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{version}.tar.gz
-# Source0-md5:	12df44bb982fb1250687b58f8e23a0de
+# Source0-md5:	94886628549a2f3ab29ba340dd335f17
 # Note: by default jna.jar contains versions of native libjnidispatch
 # for many systems/architectures; this patch disables such packaging;
 # we package libjnidispatch.so as normal native library instead
@@ -78,12 +78,19 @@ ani kod natywny.
 %build
 # build seems to need iso-8859-1 locale (there are some 8bit-encoded characters in win32 sources)
 export LC_ALL=en_US
-%ant -DCC="%{__cc}" -Drelease=1 -Dbuild-native=true -Ddynlink.native=true dist
+%ant \
+	-DCC="%{__cc}" \
+	-Drelease=1 \
+	-Dbuild-native=true \
+	-Ddynlink.native=true \
+	dist
 
 %if %{with tests}
 # but tests require UTF-8
 export LC_ALL=en_US.UTF-8
-%ant -Drelease=1 test
+%ant \
+	-Drelease=1 \
+	test
 %endif
 
 %install
