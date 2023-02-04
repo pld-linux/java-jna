@@ -6,13 +6,13 @@
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
-Version:	5.7.0
+Version:	5.8.0
 Release:	1
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
 #Source0Download: https://github.com/java-native-access/jna/tags
 Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{version}.tar.gz
-# Source0-md5:	e2484e413fc68f526eeddff8e5637ed2
+# Source0-md5:	ea7f3b7e0572291588dc2808e76355ed
 # Note: by default jna.jar contains versions of native libjnidispatch
 # for many systems/architectures; this patch disables such packaging;
 # we package libjnidispatch.so as normal native library instead

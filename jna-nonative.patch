@@ -1,6 +1,6 @@
---- jna-5.7.0/build.xml.orig	2021-02-08 19:49:25.000000000 +0100
-+++ jna-5.7.0/build.xml	2023-02-03 22:15:38.656619801 +0100
-@@ -564,87 +564,6 @@ osname=macosx;processor=x86;processor=x8
+--- jna-5.8.0/build.xml.orig	2021-03-22 18:09:22.000000000 +0100
++++ jna-5.8.0/build.xml	2023-02-04 17:36:28.489294268 +0100
+@@ -581,102 +581,6 @@ osname=macosx;processor=aarch64
        <fileset dir="${classes}" excludes="${jar.omitted}">
          <patternset refid="jar-compiled"/>
        </fileset>
@@ -13,9 +13,21 @@
 -      <zipfileset src="${lib.native}/aix-ppc64.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/aix-ppc64"/>
--      <zipfileset src="${lib.native}/darwin.jar"
+-      <zipfileset src="${lib.native}/darwin-ppc.jar"
 -                  includes="*jnidispatch*"
--                  prefix="com/sun/jna/darwin"/>
+-                  prefix="com/sun/jna/darwin-ppc"/>
+-      <zipfileset src="${lib.native}/darwin-ppc64.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/darwin-ppc64"/>
+-      <zipfileset src="${lib.native}/darwin-x86.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/darwin-x86"/>
+-      <zipfileset src="${lib.native}/darwin-x86-64.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/darwin-x86-64"/>
+-      <zipfileset src="${lib.native}/darwin-aarch64.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/darwin-aarch64"/>
 -      <zipfileset src="${lib.native}/linux-x86.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/linux-x86"/>
@@ -52,6 +64,9 @@
 -      <zipfileset src="${lib.native}/linux-s390x.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/linux-s390x"/>
+-      <zipfileset src="${lib.native}/linux-riscv64.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/linux-riscv64"/>
 -      <zipfileset src="${lib.native}/sunos-x86.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/sunos-x86"/>
@@ -88,7 +103,7 @@
        <zipfileset dir="."
                    includes="LICENSE,LGPL2.1,AL2.0"
                    prefix="META-INF"/>
-@@ -683,27 +602,6 @@ osname=macosx;processor=x86;processor=x8
+@@ -715,27 +619,6 @@ osname=macosx;processor=aarch64
            <fileset file="${build}/${minjar}"/>
            <globmapper from="*" to="classes.jar"/>
          </mappedresources>
