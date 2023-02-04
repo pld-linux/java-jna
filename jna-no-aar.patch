@@ -1,6 +1,6 @@
---- jna-4.5.1/build.xml.orig	2018-06-28 20:56:55.014778513 +0200
-+++ jna-4.5.1/build.xml	2018-06-28 21:10:27.268102570 +0200
-@@ -1141,10 +1141,10 @@
+--- jna-5.7.0/build.xml.orig	2023-02-03 22:16:07.303131276 +0100
++++ jna-5.7.0/build.xml	2023-02-03 22:33:50.867369454 +0100
+@@ -1376,10 +1376,10 @@ cd ..
      </jar>
    </target>
  
@@ -8,8 +8,8 @@
 +  <target name="dist" depends="jar,javadoc,contrib-jars,compile-tests,native"
            description="Build distribution files">
      <copy todir="${dist}" force="true" overwrite="true">
--      <fileset dir="${build}" includes="${jar},${minjar},${aar}"/>
-+      <fileset dir="${build}" includes="${jar},${minjar}"/>
-       <fileset dir="${contrib}/platform/dist" includes="jna-platform.jar"/>
+-      <fileset dir="${build}" includes="${jar},${minjar},${aar},${jar-jpms}"/>
++      <fileset dir="${build}" includes="${jar},${minjar},${jar-jpms}"/>
+       <fileset dir="${contrib}/platform/dist" includes="jna-platform.jar,jna-platform-jpms.jar"/>
        <fileset dir="${lib.native}">
          <include name="*.jar"/>

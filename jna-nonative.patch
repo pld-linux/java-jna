@@ -1,6 +1,6 @@
---- jna-5.5.0/build.xml~	2019-10-30 17:41:18.000000000 +0100
-+++ jna-5.5.0/build.xml	2020-05-01 13:28:12.569529122 +0200
-@@ -506,84 +506,6 @@
+--- jna-5.7.0/build.xml.orig	2021-02-08 19:49:25.000000000 +0100
++++ jna-5.7.0/build.xml	2023-02-03 22:15:38.656619801 +0100
+@@ -564,87 +564,6 @@ osname=macosx;processor=x86;processor=x8
        <fileset dir="${classes}" excludes="${jar.omitted}">
          <patternset refid="jar-compiled"/>
        </fileset>
@@ -79,13 +79,16 @@
 -      <zipfileset src="${lib.native}/win32-x86-64.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/win32-x86-64"/>
+-      <zipfileset src="${lib.native}/win32-aarch64.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/win32-aarch64"/>
 -      <zipfileset src="${lib.native}/w32ce-arm.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/w32ce-arm"/>
        <zipfileset dir="."
                    includes="LICENSE,LGPL2.1,AL2.0"
                    prefix="META-INF"/>
-@@ -618,27 +540,6 @@
+@@ -683,27 +602,6 @@ osname=macosx;processor=x86;processor=x8
            <fileset file="${build}/${minjar}"/>
            <globmapper from="*" to="classes.jar"/>
          </mappedresources>
