@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_without	tests		# unit test
-%bcond_without	system_libffi	# system libffi (upstream 3.0.12 or gcc >= 4.8)
+%bcond_without	system_libffi	# system libffi
 
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
-Version:	5.12.1
+Version:	5.13.0
 Release:	1
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
 #Source0Download: https://github.com/java-native-access/jna/tags
 Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{version}.tar.gz
-# Source0-md5:	2f68db6a2ccf6bc0db0d86cb444d3c57
+# Source0-md5:	64c00deb999f11df90a669906662d179
 # Note: by default jna.jar contains versions of native libjnidispatch
 # for many systems/architectures; this patch disables such packaging;
 # we package libjnidispatch.so as normal native library instead

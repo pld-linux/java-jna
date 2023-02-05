@@ -1,15 +1,14 @@
-diff -dur jna-4.2.1.orig/native/Makefile jna-4.2.1/native/Makefile
---- jna-4.2.1.orig/native/Makefile	2015-10-18 14:40:13.000000000 +0200
-+++ jna-4.2.1/native/Makefile	2015-10-27 12:17:47.000000000 +0100
-@@ -69,6 +69,7 @@
- FFI_ENV=CC="$(CC)" CFLAGS="$(COPT) $(CDEBUG)" CPPFLAGS="$(CDEFINES)"
+--- jna-5.13.0/native/Makefile.orig	2023-01-14 13:33:30.000000000 +0100
++++ jna-5.13.0/native/Makefile	2023-02-05 15:04:12.717384683 +0100
+@@ -69,6 +69,7 @@ FFI_LIB=$(FFI_BUILD)/.libs/libffi$(ARSFX
+ FFI_ENV=CC="$(CC)" CFLAGS="$(COPT) $(CDEBUG) -DFFI_STATIC_BUILD" CPPFLAGS="$(CDEFINES) -DFFI_STATIC_BUILD"
  FFI_CONFIG=--enable-static --disable-shared --with-pic=yes
  endif
 +LIBBASE=$(LIBPFX)jnidispatch$(JNISFX)
  LIBRARY=$(BUILD)/$(LIBPFX)jnidispatch$(JNISFX)
  TESTLIB=$(BUILD)/$(LIBPFX)testlib$(LIBSFX)
  TESTLIB_JAR=$(BUILD)/$(LIBPFX)testlib-jar$(LIBSFX)
-@@ -260,10 +261,10 @@
+@@ -281,10 +282,10 @@ ARCH=$(shell uname -m | sed 's/i.86/i386
  PCFLAGS+=-fPIC
  CDEFINES+=-DHAVE_PROTECTION
  ifeq ($(DYNAMIC_LIBFFI),true)
