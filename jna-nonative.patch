@@ -1,6 +1,6 @@
---- jna-5.8.0/build.xml.orig	2021-03-22 18:09:22.000000000 +0100
-+++ jna-5.8.0/build.xml	2023-02-04 17:36:28.489294268 +0100
-@@ -581,102 +581,6 @@ osname=macosx;processor=aarch64
+--- jna-5.12.1/build.xml.orig	2022-06-29 19:29:06.000000000 +0200
++++ jna-5.12.1/build.xml	2023-02-05 14:28:45.455575716 +0100
+@@ -583,105 +583,6 @@ osname=macosx;processor=aarch64
        <fileset dir="${classes}" excludes="${jar.omitted}">
          <patternset refid="jar-compiled"/>
        </fileset>
@@ -61,6 +61,9 @@
 -      <zipfileset src="${lib.native}/linux-mips64el.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/linux-mips64el"/>
+-      <zipfileset src="${lib.native}/linux-loongarch64.jar"
+-                  includes="*jnidispatch*"
+-                  prefix="com/sun/jna/linux-loongarch64"/>
 -      <zipfileset src="${lib.native}/linux-s390x.jar"
 -                  includes="*jnidispatch*"
 -                  prefix="com/sun/jna/linux-s390x"/>
@@ -103,7 +106,7 @@
        <zipfileset dir="."
                    includes="LICENSE,LGPL2.1,AL2.0"
                    prefix="META-INF"/>
-@@ -715,27 +619,6 @@ osname=macosx;processor=aarch64
+@@ -720,27 +621,6 @@ osname=macosx;processor=aarch64
            <fileset file="${build}/${minjar}"/>
            <globmapper from="*" to="classes.jar"/>
          </mappedresources>

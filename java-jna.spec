@@ -6,13 +6,13 @@
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
-Version:	5.11.0
+Version:	5.12.1
 Release:	1
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
 #Source0Download: https://github.com/java-native-access/jna/tags
 Source0:	https://github.com/java-native-access/jna/archive/%{version}/jna-%{version}.tar.gz
-# Source0-md5:	b2e8d2f389ea1ba34b4140f9aece4d73
+# Source0-md5:	2f68db6a2ccf6bc0db0d86cb444d3c57
 # Note: by default jna.jar contains versions of native libjnidispatch
 # for many systems/architectures; this patch disables such packaging;
 # we package libjnidispatch.so as normal native library instead
@@ -33,9 +33,7 @@ BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
 %if %{with system_libffi}
 # upstream version
-BuildRequires:	libffi-devel >= 3.0.12
-# gcc version (gcc 4.7.3 is not sufficient - missing ffi_prep_cif_var added in libffi 3.0.12)
-BuildRequires:	libffi-devel >= 6:4.8
+BuildRequires:	libffi-devel >= 7:3.4.2
 BuildRequires:	pkgconfig
 %endif
 %if %{with tests}

@@ -10,10 +10,10 @@
                  // Linux & FreeBSD use /usr/lib32, solaris uses /usr/lib/32
                  archPath = (Platform.isSolaris() ? "/" : "") + Native.POINTER_SIZE * 8;
              }
---- jna-5.6.0/src/com/sun/jna/Platform.java.orig	2023-02-03 16:12:04.262811012 +0100
-+++ jna-5.6.0/src/com/sun/jna/Platform.java	2023-02-03 16:19:26.593247233 +0100
-@@ -233,6 +233,10 @@ public final class Platform {
-         return false;
+--- jna-5.12.1/src/com/sun/jna/Platform.java.orig	2023-02-05 14:29:16.165409347 +0100
++++ jna-5.12.1/src/com/sun/jna/Platform.java	2023-02-05 14:31:05.321484664 +0100
+@@ -239,6 +239,10 @@ public final class Platform {
+         return ARCH.startsWith("loongarch");
      }
  
 +    public static final boolean isX32() {
@@ -23,14 +23,14 @@
      static String getCanonicalArchitecture(String arch, int platform) {
          arch = arch.toLowerCase().trim();
          if ("powerpc".equals(arch)) {
---- jna-5.6.0/src/com/sun/jna/Native.java.orig	2023-02-03 16:12:04.266143327 +0100
-+++ jna-5.6.0/src/com/sun/jna/Native.java	2023-02-03 16:21:28.159753425 +0100
-@@ -224,7 +224,7 @@ public final class Native implements Ver
+--- jna-5.12.1/src/com/sun/jna/Native.java.orig	2023-02-05 14:29:16.165409347 +0100
++++ jna-5.12.1/src/com/sun/jna/Native.java	2023-02-05 14:31:49.067914336 +0100
+@@ -250,7 +250,7 @@ public final class Native implements Ver
              setProtected(true);
          }
          MAX_ALIGNMENT = Platform.isSPARC() || Platform.isWindows()
--            || (Platform.isLinux() && (Platform.isARM() || Platform.isPPC() || Platform.isMIPS()))
-+            || (Platform.isLinux() && (Platform.isARM() || Platform.isPPC() || Platform.isMIPS()) || Platform.isX32())
+-            || (Platform.isLinux() && (Platform.isARM() || Platform.isPPC() || Platform.isMIPS() || Platform.isLoongArch()))
++            || (Platform.isLinux() && (Platform.isARM() || Platform.isPPC() || Platform.isMIPS() || Platform.isLoongArch()) || Platform.isX32())
              || Platform.isAIX()
              || (Platform.isAndroid() && !Platform.isIntel())
              ? 8 : LONG_SIZE;
