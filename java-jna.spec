@@ -69,6 +69,7 @@ ani kod natywny.
 %endif
 # optflags
 %{__sed} -i -e '/property name="cflags_extra\.native"/s@value=""@value="%{rpmcflags}"@' build.xml
+%{__sed} -i -e 's/^STRIP=.*/STRIP=true/' native/Makefile
 
 # ELFAnalyserTest fails when foreign native libraries are not present
 %{__rm} test/com/sun/jna/ELFAnalyserTest.java
