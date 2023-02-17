@@ -34,3 +34,14 @@
              || Platform.isAIX()
              || (Platform.isAndroid() && !Platform.isIntel())
              ? 8 : LONG_SIZE;
+--- jna-5.13.0/src/com/sun/jna/Structure.java.orig	2023-01-14 13:33:30.000000000 +0100
++++ jna-5.13.0/src/com/sun/jna/Structure.java	2023-02-17 17:31:58.802654950 +0100
+@@ -2081,7 +2081,7 @@ public abstract class Structure {
+                     }
+                 }
+                 if ((Platform.isIntel() && Platform.is64Bit() && !Platform.isWindows())
+-                    || Platform.isARM() || Platform.isLoongArch()) {
++                    || Platform.isX32() || Platform.isARM() || Platform.isLoongArch()) {
+                     // System V x86-64 ABI requires, that in a union aggregate,
+                     // that contains Integer and Double members, the parameters
+                     // must be passed in the integer registers. I.e. in the case
