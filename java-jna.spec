@@ -9,7 +9,7 @@ Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
 Version:	5.13.0
-Release:	3
+Release:	4
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
 #Source0Download: https://github.com/java-native-access/jna/tags
@@ -28,6 +28,7 @@ URL:		https://github.com/java-native-access/jna/
 BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	ant >= 1.9.0
+BuildConflicts:	java-xml-commons-external
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.745
