@@ -3,11 +3,13 @@
 %bcond_without	tests		# unit test
 %bcond_without	system_libffi	# system libffi
 
+%{?use_default_jdk:%use_default_jdk 8}
+
 Summary:	Easy access to native shared libraries from Java
 Summary(pl.UTF-8):	Prosty dostęp do natywnych bibliotek współdzielonych z poziomu Javy
 Name:		java-jna
 Version:	5.13.0
-Release:	1
+Release:	2
 License:	LGPL v2.1 or Apache v2.0
 Group:		Libraries/Java
 #Source0Download: https://github.com/java-native-access/jna/tags
@@ -39,6 +41,7 @@ BuildRequires:	pkgconfig
 %if %{with tests}
 BuildRequires:	java-junit
 BuildRequires:	ant-junit
+%buildrequires_jdk
 %endif
 Requires:	jpackage-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
