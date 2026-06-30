@@ -28,7 +28,7 @@ URL:		https://github.com/java-native-access/jna/
 BuildRequires:	glibc-localedb-all
 %endif
 BuildRequires:	ant >= 1.9.0
-BuildConflicts:	java-xml-commons-external
+%buildrequires_jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.745
@@ -40,10 +40,10 @@ BuildRequires:	libffi-devel >= 7:3.4.2
 BuildRequires:	pkgconfig
 %endif
 %if %{with tests}
-BuildRequires:	java-junit
 BuildRequires:	ant-junit
-%buildrequires_jdk
+BuildRequires:	java-junit
 %endif
+BuildConflicts:	java-xml-commons-external
 Requires:	jpackage-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
