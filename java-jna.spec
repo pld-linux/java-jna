@@ -31,7 +31,7 @@ BuildRequires:	ant >= 1.9.0
 %buildrequires_jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.745
+BuildRequires:	rpmbuild(macros) >= 2.021
 BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
 %if %{with system_libffi}
